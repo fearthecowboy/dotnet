@@ -2,7 +2,7 @@
   "basename": "dotnet",
   "name": "dotnet",
   "version": "1.4.0",
-  "description": "Platform agnostic installation of .NET Core SDKORRUNTIME 2.0.0",
+  "description": "Platform agnostic installation of .NET Core SDK/Runtime 2.0.0",
   "engines": {
     "node": ">=6.4.0"
   },
@@ -15,9 +15,7 @@
     "publish-both": "tsc && static-link --force && node ./.scripts/go.js && cd ./runtime && npm publish --tag preview && cd .. && cd ./sdk && npm publish --tag preview ",
     "prepublishOnly": " node -e \"throw new Error('DONT PUBLISH THIS HERE. USE npm run publish-preview.')\"",
     "static-link": "static-link",
-    "start": "node dist/app.js",
-    "reinstall": "rm -rf node_modules && touch package-lock.json && rm package-lock.json && touch yarn.lock && rm yarn.lock && npm install && static-link --debug --force",
-    "_postinstall": "node -e \"/*PostInstall: Installs platform-specific .NET framework */try{require('./dist/app.js')}catch(e){}\""
+    "reinstall": "rm -rf node_modules && touch package-lock.json && rm package-lock.json && touch yarn.lock && rm yarn.lock && npm install && static-link --debug --force"
   },
   "repository": {
     "type": "git",
@@ -36,7 +34,7 @@
   "devDependencies": {
     "@types/node": "^8.0.22",
     "shx": "~0.2.2",
-    "static-link": "../static-link",
+    "static-link": "^0.1.0",
     "typescript": "^2.5.2"
   },
   "static-link": {

@@ -1,7 +1,7 @@
 {
   "basename" : "dotnet",
   "name": "dotnet{flavor}2.0.0",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "Platform agnostic installation of .NET Core {sdkorruntime} 2.0.0",
   "engines": {
     "node": ">=6.4.0"
