@@ -1,0 +1,52 @@
+{
+  "basename": "dotnet",
+  "name": "dotnet",
+  "version": "1.4.0",
+  "description": "Platform agnostic installation of .NET Core SDKORRUNTIME 2.0.0",
+  "engines": {
+    "node": ">=6.4.0"
+  },
+  "main": "./dist/call.js",
+  "typings": "./dist/main.d.ts",
+  "scripts": {
+    "publish-preview": "npm install && npm run publish-both",
+    "build": "tsc && static-link",
+    "pack-both": "tsc && static-link --force && node ./.scripts/go.js && cd ./runtime && npm pack && cd .. && cd ./sdk && npm pack ",
+    "publish-both": "tsc && static-link --force && node ./.scripts/go.js && cd ./runtime && npm publish --tag preview && cd .. && cd ./sdk && npm publish --tag preview ",
+    "prepublishOnly": " node -e \"throw new Error('DONT PUBLISH THIS HERE. USE npm run publish-preview.')\"",
+    "static-link": "static-link",
+    "start": "node dist/app.js",
+    "reinstall": "rmdir /s /q node_modules 2> nul & erase  package-lock.json 2> nul & erase yarn.lock 2> nul  & npm install & static-link --debug --force",
+    "_postinstall": "node -e \"/*PostInstall: Installs platform-specific .NET framework */try{require('./dist/app.js')}catch(e){}\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fearthecowboy/dotnet.git"
+  },
+  "keywords": [
+    "dotnet",
+    ".NET",
+    "core",
+    "$SDKORRUNTIME",
+    "2.0",
+    "2.0.0",
+    "install"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^8.0.22",
+    "shx": "~0.2.2",
+    "static-link": "c:/work/github/static/static-link",
+    "typescript": "^2.5.2"
+  },
+  "static-link": {
+    "entrypoints": [
+      "./dist/app.js"
+    ],
+    "dependencies": {
+      "yarn": "^1.1.0",
+      "rimraf": "2.6.2",
+      "mkdirp": "0.5.1"
+    }
+  }
+}

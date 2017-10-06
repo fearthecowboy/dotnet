@@ -1,0 +1,16 @@
+!dist/
+dist/package-path.json
+test/
+dist/test/
+yarn/
+*.d.ts
+dist/package/
+dist/fs-monkey/demo
+package/
+.npmignore
+.vscode/
+tsconfig.json
+*.js.map
+*.ts
+*.tgz
+*.tar

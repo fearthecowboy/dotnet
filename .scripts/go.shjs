@@ -1,0 +1,24 @@
+rm -rf ${__dirname}/../runtime/ 
+rm -rf ${__dirname}/../sdk/ 
+
+mkdir -p ${__dirname}/../runtime/ 
+mkdir -p ${__dirname}/../sdk/ 
+
+cp -R ${__dirname}/../dist/ ${__dirname}/../runtime/dist/ 
+cp -R ${__dirname}/../dist/ ${__dirname}/../sdk/dist/ 
+
+cp ${__dirname}/../package.each.json ${__dirname}/../runtime/package.json 
+cp ${__dirname}/../package.each.json ${__dirname}/../sdk/package.json
+
+cp ${__dirname}/../.npmignore ${__dirname}/../runtime/.npmignore 
+cp ${__dirname}/../.npmignore ${__dirname}/../sdk/.npmignore 
+
+sed -i {flavor} "-" ${__dirname}/../runtime/package.json
+sed -i {sdkorruntime} "runtime" ${__dirname}/../runtime/package.json
+sed -i {sdkorrun} "run" ${__dirname}/../runtime/package.json
+
+sed -i {flavor} "-sdk-" ${__dirname}/../sdk/package.json
+sed -i ".basename.*" "\\\"basename\\\" : \\\"dotnet-sdk\\\","  ${__dirname}/../sdk/package.json
+sed -i {sdkorruntime} "sdk" ${__dirname}/../sdk/package.json
+sed -i {sdkorrun} "sdk" ${__dirname}/../sdk/package.json
+
