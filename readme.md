@@ -4,13 +4,13 @@
     - spots that differ are (to be) marked with COWBELL
 -->
 
-# .NET Core 2.0.0 Runtime<!--COWBELL-->
+# .NET Core 2.0.0 {sdkorruntime}
 
-This package installs the .NET Core 2.0 Runtime<!--COWBELL--> for your platform and provides the `dotnet` executable.
+This package installs the .NET Core 2.0 {sdkorruntime} for your platform and provides the `dotnet` executable.
 
-No elevation required.
+No elevation/root required.
 
-Partners with the [dotnet-sdk-2.0.0](https://www.npmjs.com/package/dotnet-sdk-2.0.0)<!--COWBELL--> package.
+Partners with the [dotnet{flavor}2.0.0](https://www.npmjs.com/package/dotnet{flavor}2.0.0) package.
 
 Usable as a standalone but also for shipping .NET based packages:
 
@@ -82,3 +82,24 @@ Here, we will merely determine the executing platform, acquire the corresponding
 
 The *platform-specific* package (see above) is installed in a *shared location* in order to reliably deduplicate it across installations.
 By default, the installation location is `~/.net/2.0.0` since it is accessible without elevation.
+
+### Environment Variables
+
+`DEBUG`  - set to `1` to show debugging messages from the caller/installer scripts
+
+`NO_NET_SDK` - set to `1` to prevent the runtime runner for checking for and deferring to the SDK runner before using just the runtime.
+
+`DOTNET_SHARED_ARCH` - overrides the architecture (one of `osx`, `linux`, `win`, `win-x86`).
+
+`DOTNET_SHARED_HOME` - overrides the base folder for installing dotnet runtimes/sdks. defaults to 
+- linux/osx: `~/.net` 
+- windows:  `%USERPROFILE%\.net`
+
+### Commands 
+
+Since the .NET core tools and runtime both use a command called `dotnet`, both the runtime and sdk variants of this package do the same.
+If you have both installed, it will by default use the SDK which should support the needs of runtime running too.
+
+`dotnet` -- runs the SDK `dotnet` tool if installed, or falls back to running the runtime `dotnet` tool.
+
+`install-dotnet-{sdkorruntime}` -- installs the shared .NET Core {sdkorruntime} if it's not installed. use `--force` to overwrite if necessary

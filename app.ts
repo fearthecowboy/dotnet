@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 import { basePath, fileExists, packageJsonPath, installationPath,dotnetPackageName } from './common'
-import {fork} from "child_process";
+import {spawn} from "child_process";
 
 const force = process.argv.indexOf("--force") !== -1;
+const verbose = process.argv.indexOf("--debug") !== -1 || process.env.DEBUG; 
+const debug = verbose ? console.error:(message?: any, ...optionalParams: any[])=>{};
 
 async function main() {
   if( force || !fileExists(packageJsonPath)) {
@@ -11,14 +13,15 @@ async function main() {
     try {
       if (force) {
         // force => remove folder first
+        debug(`Removing installation path: ${installationPath}`);
         await new Promise<void>((res, rej) => require(`rimraf`)(installationPath, (err: any) => err ? rej(err) : res()));
       }
       // make target folder location
+      debug(`Creating base path: ${basePath}`);
       await new Promise(res => require("mkdirp")(basePath, () => res()));
-      console.log = console.error;
 
       // run yarn (out of proc)
-      fork("/node_modules/yarn/bin/yarn.js",['add', dotnetPackageName, "--force","--silent","--no-lockfile","--json"], {silent:true,cwd:basePath}).
+      spawn(process.execPath,["/node_modules/yarn/bin/yarn.js",'add', dotnetPackageName, "--force","--silent","--no-lockfile","--json"], {stdio:verbose ? [process.stdin, process.stderr, process.stderr]:'ignore',cwd:basePath}).
         on("exit",(code:number,signal:string)=> {
            if( code ) { 
              console.error("Unable to install/use dotnet framework.");

@@ -10,13 +10,13 @@
   "typings": "./dist/main.d.ts",
   "scripts": {
     "publish-preview": "npm install && npm run publish-both",
-    "build": "tsc && static-link",
+    "build": "tsc && static-link && node ./.scripts/go.js",
     "pack-both": "tsc && static-link --force && node ./.scripts/go.js && cd ./runtime && npm pack && cd .. && cd ./sdk && npm pack ",
     "publish-both": "tsc && static-link --force && node ./.scripts/go.js && cd ./runtime && npm publish --tag preview && cd .. && cd ./sdk && npm publish --tag preview ",
     "prepublishOnly": " node -e \"throw new Error('DONT PUBLISH THIS HERE. USE npm run publish-preview.')\"",
     "static-link": "static-link",
     "start": "node dist/app.js",
-    "reinstall": "rmdir /s /q node_modules 2> nul & erase  package-lock.json 2> nul & erase yarn.lock 2> nul  & npm install & static-link --debug --force",
+    "reinstall": "rm -rf node_modules && touch package-lock.json && rm package-lock.json && touch yarn.lock && rm yarn.lock && npm install && static-link --debug --force",
     "_postinstall": "node -e \"/*PostInstall: Installs platform-specific .NET framework */try{require('./dist/app.js')}catch(e){}\""
   },
   "repository": {
@@ -36,7 +36,7 @@
   "devDependencies": {
     "@types/node": "^8.0.22",
     "shx": "~0.2.2",
-    "static-link": "c:/work/github/static/static-link",
+    "static-link": "../static-link",
     "typescript": "^2.5.2"
   },
   "static-link": {

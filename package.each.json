@@ -1,7 +1,7 @@
 {
   "basename" : "dotnet",
   "name": "dotnet{flavor}2.0.0",
-  "version": "1.4.1",
+  "version": "1.4.3",
   "description": "Platform agnostic installation of .NET Core {sdkorruntime} 2.0.0",
   "engines": {
     "node": ">=6.4.0"
@@ -12,7 +12,7 @@
     "dotnet": "./dist/call.js",
     "dotnet-{sdkorrun}": "./dist/call.js",
     "dotnet-{sdkorrun}-2.0.0": "./dist/call.js",
-    "-dotnet-{sdkorrun}": "./dist/app.js"
+    "install-dotnet-{sdkorruntime}": "./dist/app.js"
   },
   "scripts": {
     "postinstall": "node -e \"/*PostInstall: Installs platform-specific .NET framework */try{require('./dist/app.js')}catch(e){}\""

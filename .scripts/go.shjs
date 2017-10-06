@@ -22,3 +22,18 @@ sed -i ".basename.*" "\\\"basename\\\" : \\\"dotnet-sdk\\\","  ${__dirname}/../s
 sed -i {sdkorruntime} "sdk" ${__dirname}/../sdk/package.json
 sed -i {sdkorrun} "sdk" ${__dirname}/../sdk/package.json
 
+cp ${__dirname}/../readme.md ${__dirname}/../runtime/readme.md
+cp ${__dirname}/../readme.md ${__dirname}/../sdk/readme.md
+
+
+sed -i {flavor} "-" ${__dirname}/../runtime/readme.md
+sed -i {flavor} "-" ${__dirname}/../runtime/readme.md
+
+sed -i {sdkorruntime} "runtime" ${__dirname}/../runtime/readme.md
+sed -i {sdkorruntime} "runtime" ${__dirname}/../runtime/readme.md
+
+sed -i {flavor} "-sdk-" ${__dirname}/../sdk/readme.md
+sed -i {flavor} "-" ${__dirname}/../sdk/readme.md
+
+sed -i {sdkorruntime} "sdk" ${__dirname}/../sdk/readme.md
+sed -i {sdkorruntime} "sdk" ${__dirname}/../sdk/readme.md
