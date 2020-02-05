@@ -103,3 +103,23 @@ If you have both installed, it will by default use the SDK which should support 
 `dotnet` -- runs the SDK `dotnet` tool if installed, or falls back to running the runtime `dotnet` tool.
 
 `install-dotnet-{sdkorruntime}` -- installs the shared .NET Core {sdkorruntime} if it's not installed. use `--force` to overwrite if necessary
+
+## Troubleshooting
+
+### Unable to install/use dotnet framework
+If you are getting the `Unable to install/use dotnet framework` message, try obtaining more details by running the following commands in a Powershell prompt:
+```powershell
+# clean out anything that might be there
+rmdir -recurse $home/.net
+
+# enable debug logs
+$env:debug=1
+$env:NO_NET_SDK=1
+
+# clean npm cache
+npm cache clear --force
+
+# try installing again (2.1 is an example, may differ in your situation)
+npm install -g dotnet-2.1 
+```
+It should dump out debugging data, which can help you find the issue. There may be one or more lines in the logs that start with `{"type":"error"`, which will point you in the right direction.
